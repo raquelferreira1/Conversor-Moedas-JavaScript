@@ -1,9 +1,9 @@
 const button = document.getElementById('button-conversor')
 const select = document.getElementById('currency-select')
 
-$(document).ready(function () { 
+$(document).ready(function () {
     let $inputReal = $("#input-real");
-    $inputReal.mask('0.000.00', {reverse: true});
+    $inputReal.mask('00.000.00', { reverse: true });
 });
 
 const convertValues = async () => {
@@ -16,7 +16,7 @@ const convertValues = async () => {
     const dolar = api.USDBRL.high
     const euro = api.EURBRL.high
     const bitcoin = api.BTCBRL.high
-        
+
     realValueText.innerHTML = currencyValueText.innerHTML = new Intl.NumberFormat('pt-BR',
         { style: 'currency', currency: 'BRL' }
     ).format(inputReais);
