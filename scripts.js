@@ -3,7 +3,7 @@ const select = document.getElementById('currency-select')
 
 $(document).ready(function () {
     let $inputReal = $("#input-real");
-    $inputReal.mask('00.000.00', { reverse: true });
+    $inputReal.mask('000.000.000.000.000.000', { reverse: true });
 });
 
 const convertValues = async () => {
