@@ -3,41 +3,45 @@ const select = document.getElementById('currency-select')
 
 $(document).ready(function () {
     let $inputReal = $("#input-real");
-    $inputReal.mask('000.000.000.000.000.000', { reverse: true });
+    $inputReal.mask('000.000.000.000.000.000,00', { reverse: true });
 });
 
 const convertValues = async () => {
-    const inputReais = document.getElementById('input-real').value
-    const realValueText = document.getElementById('real-value-text')
-    const currencyValueText = document.getElementById('currency-value-text')
+    const inputReais = document.getElementById('input-real').value.replace(/[^\d]/g, '').slice(0, -2);
+    if(!inputReais || inputReais < 1){
+        alert("Favor, preencha o campo com um valor a partir de R$ 1,00")
+    }else{
+        const realValueText = document.getElementById('real-value-text')
+        const currencyValueText = document.getElementById('currency-value-text')
 
-    const api = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(response => response.json())
+        const api = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(response => response.json())
+        const dolar = api.USDBRL.high
+        const euro = api.EURBRL.high
+        const bitcoin = api.BTCBRL.high
+        
+        realValueText.innerHTML = currencyValueText.innerHTML = new Intl.NumberFormat('pt-BR',
+            { style: 'currency', currency: 'BRL' }
+        ).format(inputReais);
 
-    const dolar = api.USDBRL.high
-    const euro = api.EURBRL.high
-    const bitcoin = api.BTCBRL.high
+        if (select.value === 'US$ Dólar Americano') {
+            currencyValueText.innerHTML = new Intl.NumberFormat('en-US',
+                { style: 'currency', currency: 'USD' }
+            ).format(inputReais / dolar)
+        }
 
-    realValueText.innerHTML = currencyValueText.innerHTML = new Intl.NumberFormat('pt-BR',
-        { style: 'currency', currency: 'BRL' }
-    ).format(inputReais);
+        if (select.value === '€ Euro') {
+            currencyValueText.innerHTML = new Intl.NumberFormat('de-DE',
+                { style: 'currency', currency: 'EUR' }
+            ).format(inputReais / euro)
+        }
 
-    if (select.value === 'US$ Dólar Americano') {
-        currencyValueText.innerHTML = new Intl.NumberFormat('en-US',
-            { style: 'currency', currency: 'USD' }
-        ).format(inputReais / dolar)
+        if (select.value === 'Bitcoin') {
+            currencyValueText.innerHTML = new Intl.NumberFormat('en-US',
+                { style: 'currency', currency: 'BTC' }
+            ).format(inputReais / bitcoin * 1000)
+        }
     }
-
-    if (select.value === '€ Euro') {
-        currencyValueText.innerHTML = new Intl.NumberFormat('de-DE',
-            { style: 'currency', currency: 'EUR' }
-        ).format(inputReais / euro)
-    }
-
-    if (select.value === 'Bitcoin') {
-        currencyValueText.innerHTML = new Intl.NumberFormat('en-US',
-            { style: 'currency', currency: 'BTC' }
-        ).format(inputReais / bitcoin * 1000)
-    }
+    
 }
 
 const changeCurrency = () => {
