@@ -1,4 +1,4 @@
-# Conversor de Moedas
+# Conversor de Moedas :currency_exchange:
 
 ## 📝 Sobre
 
