@@ -16,7 +16,7 @@ Conversor de Moedas em tempo real. Converte de Real para Dólar, Euro e Bitcoin.
 - HTML Semântico;
 - Utiliza API Fetch
 
-> Para ver o projeto on-line clique **[AQUI](https://raquelferreira1.github.io/Conversor-Moedas/)**
+> Para ver o projeto on-line clique **[AQUI](https://github.com/raquelferreira1/Conversor-Moedas)**
 
 <img src="https://github.com/raquelferreira1/Conversor-Moedas/blob/master/assets/print-tela.png?raw=true">
 
